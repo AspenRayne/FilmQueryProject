@@ -20,29 +20,60 @@ public class FilmQueryApp {
 	}
 
 	private void test() throws SQLException {
-		Film film = db.findFilmById(1);
+		Film film = db.findFilmById(4);
 		System.out.println(film);
 
 	}
 
-	private void launch() {
+	private void launch() throws SQLException {
 		Scanner input = new Scanner(System.in);
 
-		startUserInterface(input);
+		userMenu(input);
 
 		input.close();
 	}
 
-	private void startUserInterface(Scanner input) {
-		System.out.println("Please enter in a Film ID: ");
-		int userInput = input.nextInt();
-		List<Actor> findActorsByFilmId = db.findActorsByFilmId(userInput);
-		System.out.println(findActorsByFilmId);
-		
-//		System.out.println("Please enter in a keyword: ");
-//		String strInput = input.next();
-//		List<Actor> findActorsBySearch = db.findActorsBySearch(strInput);
-//		System.out.println(findActorsBySearch);
+	private void userMenu(Scanner input) throws SQLException {
+		boolean keepGoing = true;
+		while (keepGoing) {
+			System.out.println("1. Look up a film by its id");
+			System.out.println("2. Look up a film by a search keyword");
+			System.out.println("3. Exit the application");
+			int userInput = input.nextInt();
+
+			switch (userInput) {
+			case 1:
+				System.out.println("Please enter in a Film ID: ");
+				userInput = input.nextInt();
+				Film findFilmById = db.findFilmById(userInput);
+				if (findFilmById == null) {
+					System.out.println("SORRY no films with that ID");
+				} else {
+					findFilmById.displayFilmDetails();
+				}
+				break;
+			case 2:
+				System.out.println("Please enter in a keyword: ");
+				String strInput = input.next();
+				List<Film> findActorsBySearch = db.findFilmsBySearch(strInput);
+				
+				if (findActorsBySearch.isEmpty()) {
+					System.out.println("SORRY no films with that name");
+				} else {
+					for (Film f : findActorsBySearch) {
+						f.displayFilmDetails();
+					}
+				}
+				break;
+			case 3:
+				System.out.println("Goodbye");
+				keepGoing = false;
+				break;
+			default:
+				keepGoing = false;
+			}
+		}
+		keepGoing = true;
 	}
 
 }

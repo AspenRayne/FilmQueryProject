@@ -1,5 +1,6 @@
 package com.skilldistillery.filmquery.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Film {
@@ -7,7 +8,7 @@ public class Film {
 	private String title;
 	private String description;
 	private int releaseYear;
-	private int languageId;
+	private String languageId;
 	private int rentalDuration;
 	private double rentalRate;
 	private int length;
@@ -20,7 +21,16 @@ public class Film {
 
 	}
 
-	public Film(int id, String title, String description, int releaseYear, int languageId, int rentalDuration,
+	public Film(String title, int releaseYear, String rating, String description, String languageId, int id) {
+		this.title = title;
+		this.releaseYear = releaseYear;
+		this.rating = rating;
+		this.description = description;
+		this.languageId = languageId;
+		this.id = id;
+	}
+
+	public Film(int id, String title, String description, int releaseYear, String languageId, int rentalDuration,
 			double rentalRate, int length, double replacementCost, String rating, String specialFeatures) {
 		this.id = id;
 		this.title = title;
@@ -34,6 +44,29 @@ public class Film {
 		this.rating = rating;
 		this.specialFeatures = specialFeatures;
 
+	}
+
+	public void actorList(List<Actor> actor) {
+		this.actors = actor;
+//		for (Actor a : actor) {
+//			this.actors.add(a);
+//		}
+	}
+
+	public void displayFilmDetails() {
+		System.out.println(this.toString());
+		this.displayActors();
+	}
+
+	public void displayActors() {
+		if (this.actors != null) {
+
+			System.out.println("===CAST===");
+			for (Actor a : this.actors) {
+				System.out.println(a);
+
+			}
+		}
 	}
 
 	public int getId() {
@@ -68,11 +101,29 @@ public class Film {
 		this.releaseYear = releaseYear;
 	}
 
-	public int getLanguageId() {
+	public String getLanguageId() {
+		if (languageId.equals("1")) {
+			languageId = "English";
+		}
+		if (languageId.equals("2")) {
+			languageId = "Italian";
+		}
+		if (languageId.equals("3")) {
+			languageId = "Japanese";
+		}
+		if (languageId.equals("4")) {
+			languageId = "Mandarin";
+		}
+		if (languageId.equals("5")) {
+			languageId = "French";
+		}
+		if (languageId.equals("6")) {
+			languageId = "German";
+		}
 		return languageId;
 	}
 
-	public void setLanguageId(int languageId) {
+	public void setLanguageId(String languageId) {
 		this.languageId = languageId;
 	}
 
@@ -123,7 +174,6 @@ public class Film {
 	public void setSpecialFeatures(String specialFeatures) {
 		this.specialFeatures = specialFeatures;
 	}
-	
 
 	public List<Actor> getActors() {
 		return actors;
@@ -139,7 +189,7 @@ public class Film {
 		int result = 1;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + id;
-		result = prime * result + languageId;
+		// result = prime * result + languageId;
 		result = prime * result + length;
 		result = prime * result + ((rating == null) ? 0 : rating.hashCode());
 		result = prime * result + releaseYear;
@@ -202,10 +252,8 @@ public class Film {
 
 	@Override
 	public String toString() {
-		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releaseYear=" + releaseYear
-				+ ", languageId=" + languageId + ", rentalDuration=" + rentalDuration + ", rentalRate=" + rentalRate
-				+ ", length=" + length + ", replacementCost=" + replacementCost + ", rating=" + rating
-				+ ", specialFeatures=" + specialFeatures + "]";
+		return "[Film Title: " + getTitle() + "] [Year: " + getReleaseYear() + "] [Rating: " + getRating()
+				+ "] [Language: " + getLanguageId() + "]\n[Description: " + getDescription() + "]\n";
 	}
 
 }
