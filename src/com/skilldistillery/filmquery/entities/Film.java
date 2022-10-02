@@ -48,20 +48,22 @@ public class Film {
 
 	public void actorList(List<Actor> actor) {
 		this.actors = actor;
-//		for (Actor a : actor) {
-//			this.actors.add(a);
-//		}
+
 	}
 
 	public void displayFilmDetails() {
+		System.out.println("____________________________________________________________________________________");
+		System.out.println("==================== FILM =====================");
 		System.out.println(this.toString());
 		this.displayActors();
+		System.out.println("____________________________________________________________________________________");
+		System.out.println();
 	}
 
 	public void displayActors() {
 		if (this.actors != null) {
 
-			System.out.println("===CAST===");
+			System.out.println("==================== CAST =====================");
 			for (Actor a : this.actors) {
 				System.out.println(a);
 

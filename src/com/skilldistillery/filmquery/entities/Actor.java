@@ -74,7 +74,7 @@ public class Actor {
 
 	@Override
 	public String toString() {
-		return "[Name: " + getFirstName() + " " + getLastName() + "] [Actors ID: " + getId() + "]";
+		return "[Actors Name: " + getFirstName() + " " + getLastName() + "] [Actors ID: " + getId() + "]";
 	}
 
 }
